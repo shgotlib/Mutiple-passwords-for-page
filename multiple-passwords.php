@@ -86,8 +86,9 @@ class FF_Multiple_passwords {
     
         if ( ! isset( $_COOKIE['wp-postpass_' . COOKIEHASH] ) )
             return true;
-    
-        require_once ABSPATH . WPINC . '/class-phpass.php';
+        if( ! class_exists( 'PasswordHash' ) ) {
+            require_once ABSPATH . WPINC . '/class-phpass.php';
+        }
         $hasher = new PasswordHash( 8, true );
     
         $hash = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
